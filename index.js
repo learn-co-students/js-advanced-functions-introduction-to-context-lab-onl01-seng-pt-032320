@@ -21,29 +21,101 @@ function createEmployeeRecords(arr1){
 
 }
 
-function createTimeInEvent(obj,date){
-    obj['TimeIn'] = []
-    date.split(" ")
-
+function createTimeInEvent(obj,dateValue){
+    const newObj = {}
+    const value = dateValue.split(" ")
+    newObj['type'] = 'TimeIn'
+    newObj['hour'] = parseInt(value[1])
+    newObj['date'] = value[0]
+    obj['timeInEvents'].push(newObj)
+    return obj 
 }
 
-function createTimeOutEvent(obj, date){
-    obj['TimeOut'] = []
+function createTimeOutEvent(obj, dateValue){
+    const newObj = {}
+    const value = dateValue.split(" ")
+    newObj['type'] = 'TimeOut'
+    newObj['hour'] = parseInt(value[1])
+    newObj['date'] = value[0]
+    obj['timeOutEvents'].push(newObj)
+    return obj 
 }
 
-function hoursWorkedOnDate(obj,date){
- 
+function hoursWorkedOnDate(employee,date){
+    const len = employee['timeInEvents'].length
+    const c = employee['timeInEvents'][0]['date']
+    let timeInHour;
+    let timeOutHour;
+    let timeElapse;
+
+
+    for(let i=0;i<len;i++){
+        if (date === employee['timeInEvents'][i]['date']) {
+            timeInHour = employee['timeInEvents'][i]['hour']
+            
+        }
+    }
+    for(let i=0;i<len;i++){
+       if (date === employee['timeOutEvents'][i]['date']) {
+            timeOutHour = employee['timeOutEvents'][i]['hour']
+            
+        }
+    }
+
+    timeElapse = timeOutHour - timeInHour
+    return timeElapse/100
 }
 
 function wagesEarnedOnDate(obj, date){
-
+    const hours = hoursWorkedOnDate(obj,date)
+    const payRate = obj['payPerHour']
+    const wages = hours * payRate
+    return wages
+   
 }
 
-function allWagesFor(obj){
+function allWagesFor(employee){
+ const len = employee['timeInEvents'].length
+ const timeInHours = employee['timeInEvents']
+ const dates = []
+ let total =0
+ for(let i=0;i<len;i++){
+     dates.push(timeInHours[i].date)
+ }
 
-
+ for(let i=0;i<dates.length;i++){
+     total+= wagesEarnedOnDate(employee, dates[i])
 }
+ return total
+}
+
+// 0044-03-14 0900 
 
 function findEmployeeByFirstName(srcArray,fname){
-
+    const allEmployees = []
+    let value;
+    for(let i=0;i<srcArray.length;i++){
+       allEmployees.push(createEmployeeRecords(srcArray[i]))
+    }
+    for(let i=0;i<allEmployees.length;i++){
+        if(allEmployees['familyName'] === fname){
+            value = fname
+        }
+        else {
+            value = undefined
+        }
+    }
+    return value
 }
+
+// obj {
+//    timeInEvents: [
+//        newobj {
+//            type: 'timeine'
+//            date: ''
+//            hour: ''
+//        }
+//    ] 
+// }
+
+// obj['timeinEvents']
