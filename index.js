@@ -92,20 +92,24 @@ function allWagesFor(employee){
 // 0044-03-14 0900 
 
 function findEmployeeByFirstName(srcArray,fname){
-    const allEmployees = []
-    let value;
+    let obj;
+    
+
     for(let i=0;i<srcArray.length;i++){
-       allEmployees.push(createEmployeeRecords(srcArray[i]))
-    }
-    for(let i=0;i<allEmployees.length;i++){
-        if(allEmployees['familyName'] === fname){
-            value = fname
-        }
-        else {
-            value = undefined
+        if(srcArray[i]['firstName'] === fname){
+            obj = srcArray[i]
+            break 
         }
     }
-    return value
+    return obj
+}
+
+function calculatePayroll(employees){
+    let total =0
+    for(let i=0;i<employees.length;i++){
+     total+=allWagesFor(employees[i])
+ }
+ return total
 }
 
 // obj {
