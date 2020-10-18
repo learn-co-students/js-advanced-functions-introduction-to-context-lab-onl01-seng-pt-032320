@@ -12,9 +12,12 @@ function createEmployeeRecord(arr){
 }
 
 function createEmployeeRecords(arr1){
+    console.log(arr1);
+    const arrayObject = []
     for(let i=0; i < arr1.length; i++){
-        createEmployeeRecord(i)
+        arrayObject.push(createEmployeeRecord(arr1[i]))
     }
+    return arrayObject
 
 }
 
@@ -29,7 +32,18 @@ function createTimeOutEvent(obj, date){
 }
 
 function hoursWorkedOnDate(obj,date){
- const worked;
+ 
+}
 
+function wagesEarnedOnDate(obj, date){
+
+}
+
+function allWagesFor(obj){
+
+
+}
+
+function findEmployeeByFirstName(srcArray,fname){
 
 }
